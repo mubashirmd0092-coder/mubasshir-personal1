@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MD Mubasshir Rahman - Portfolio</title>
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            scroll-behavior: smooth;
+        }
+        body {
+            background-color: #000000;
+            color: #ffffff;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Top Header Navigation */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: #0b0b0b;
+            padding: 20px 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            border-bottom: 1px solid #1a1a1a;
+        }
+        header .logo h2 {
+            font-size: 1.5rem;
+            color: #ffb03b;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        header nav ul {
+            list-style: none;
+            display: flex;
+            gap: 30px;
+        }
+        header nav ul li a {
+            color: #a0a0a0;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: color 0.3s;
+        }
+        header nav ul li a:hover, header nav ul li a.active {
+            color: #ffb03b;
+        }
+
+        /* Mobile Menu Toggle Button */
+        .menu-toggle {
+            display: none;
+            background: none;
+            color: #ffb03b;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Main Content Area */
+        main {
+            width: 100%;
+            background: #000000;
+        }
+        section {
+            padding: 120px 60px 80px 60px;
+            border-bottom: 1px solid #161616;
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        section.active-anim {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Hero Section */
+        .hero {
+                    height: 100vh;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                    text-align: center;
+                    background: -webkit-linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.85)), url('/in.jpg') no-repeat center center/cover;
+                    background: -moz-linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.85)), url('/in.jpg') no-repeat center center/cover;
+                    background: -o-linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.85)), url('/in.jpg') no-repeat center center/cover;
+                    background: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.85)), url('/in.jpg') no-repeat center center/cover;
+                    padding: 0 20px;
+                    opacity: 1;
+                    transform: translateY(0);
+                    position: relative;
+                }
+        .hero h3 {
+            color: #ffb03b;
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 15px;
+            animation: fadeInDown 1s ease 0.3s forwards;
+            opacity: 0;
+        }
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #ffffff;
+            animation: fadeInUp 1s ease 0.5s forwards;
+            opacity: 0;
+        }
+        .hero h1 span {
+            color: #ffb03b;
+        }
+        .hero p {
+            font-size: 1.1rem;
+            color: #a0a0a0;
+            max-width: 600px;
+            animation: fadeInUp 1s ease 0.7s forwards;
+            opacity: 0;
+        }
+
+        @keyframes fadeInDown {
+            from { transform: translateY(-20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        @keyframes fadeInUp {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .btn {
+            display: inline-block;
+            background: #ffb03b;
+            color: #000000;
+            padding: 12px 30px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 176, 59, 0.3);
+        }
+        .btn:hover {
+            background: #e59a2a;
+            transform: translateY(-4px);
+            box-shadow: 0 6px 20px rgba(255, 176, 59, 0.5);
+        }
+
+        /* Section Headings */
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            position: relative;
+            color: #ffffff;
+            font-weight: 700;
+        }
+        .section-title span {
+            color: #ffb03b;
+        }
+
+        /* About Me Section */
+        .about-container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        .about-subtitle {
+            color: #a0a0a0;
+            font-size: 1rem;
+            margin-bottom: 40px;
+        }
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 50px;
+            align-items: center;
+        }
+        .about-img img {
+            width: 100%;
+            border-radius: 10px;
+            border: 3px solid #ffb03b;
+            object-fit: cover;
+            max-height: 450px;
+            transition: transform 0.5s ease;
+        }
+        .about-img img:hover {
+            transform: scale(1.03);
+        }
+        .about-details-list {
+            list-style: none;
+            margin-bottom: 25px;
+        }
+        .about-details-list li {
+            display: flex;
+            padding: 12px 0;
+            border-bottom: 1px solid #1a1a1a;
+            font-size: 1rem;
+            word-break: break-all;
+        }
+        .about-details-list li strong {
+            width: 130px;
+            color: #ffffff;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+        .about-details-list li span {
+            color: #a0a0a0;
+        }
+        .project-complete-count {
+            color: #ffb03b;
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+        }
+
+        /* Resume Section */
+        .resume-container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        .resume-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        .resume-card {
+            background: #0f0f0f;
+            border: 1px solid #1c1c1c;
+            padding: 35px;
+            border-radius: 8px;
+            transition: transform 0.3s;
+        }
+        .resume-card:hover {
+            transform: translateY(-5px);
+            border-color: #ffb03b;
+        }
+        .resume-year {
+            color: #ffb03b;
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+        .resume-title {
+            color: #ffffff;
+            font-size: 1.3rem;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+        .resume-place {
+            color: #777;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+        }
+        .resume-desc {
+            color: #a0a0a0;
+            font-size: 0.95rem;
+        }
+
+        /* Services List Style */
+        .services-container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        .services-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            max-width: 600px;
+            margin-top: 30px;
+        }
+        .service-item {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+        .service-item i {
+            color: #ffb03b;
+            margin-right: 15px;
+            transition: transform 0.3s;
+        }
+        .service-item:hover {
+            color: #ffb03b;
+            transform: translateX(8px);
+        }
+        .service-item:hover i {
+            transform: translateX(5px);
+        }
+
+        /* Skills Progress Bars Style */
+        .skills-container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        .skills-grid-box {
+            max-width: 800px;
+            margin-top: 30px;
+        }
+        .skill-box {
+            margin-bottom: 25px;
+        }
+        .skill-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #ffffff;
+            font-size: 1rem;
+        }
+        .skill-info span:last-child {
+            color: #ffb03b;
+        }
+        .progress-line {
+            background: #161616;
+            height: 10px;
+            border-radius: 5px;
+            position: relative;
+            overflow: hidden;
+        }
+        .progress-line span {
+            height: 100%;
+            background: #ffb03b;
+            position: absolute;
+            left: 0;
+            top: 0;
+            border-radius: 5px;
+            width: 0;
+            transition: width 1.5s ease-in-out;
+            box-shadow: 0 0 10px rgba(255, 176, 59, 0.4);
+        }
+
+        /* Projects Section */
+        .projects-container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+        .project-item {
+            background: #0f0f0f;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid #1c1c1c;
+            transition: all 0.4s ease;
+        }
+        .project-item:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.6);
+            border-color: #ffb03b;
+        }
+        .project-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        .project-item:hover img {
+            transform: scale(1.1);
+        }
+        .project-info {
+            padding: 20px;
+        }
+        .project-info h4 {
+            color: #ffffff;
+            margin-bottom: 10px;
+        }
+        .project-info p {
+            color: #a0a0a0;
+            font-size: 0.9rem;
+        }
+
+        /* Contact Section */
+        .contact-container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        .contact-box {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 40px;
+            margin-top: 30px;
+        }
+        .contact-form input, .contact-form textarea {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            background: #0f0f0f;
+            border: 1px solid #1c1c1c;
+            border-radius: 4px;
+            color: #ffffff;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        .contact-form textarea {
+            height: 150px;
+        }
+        .contact-form input:focus, .contact-form textarea:focus {
+            border-color: #ffb03b;
+            outline: none;
+            box-shadow: 0 0 10px rgba(255, 176, 59, 0.2);
+        }
+
+        /* Clark 4-Column Footer Styling */
+        footer {
+            background: #050505;
+            color: #a0a0a0;
+            padding: 80px 60px 40px 60px;
+            border-top: 1px solid #161616;
+        }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 60px;
+            max-width: 1100px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .footer-col h3 {
+            color: #ffffff;
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+        .footer-col p {
+            font-size: 0.95rem;
+            line-height: 1.8;
+            color: #a0a0a0;
+        }
+        .footer-col ul {
+            list-style: none;
+        }
+        .footer-col ul li {
+            margin-bottom: 12px;
+        }
+        .footer-col ul li a {
+            color: #a0a0a0;
+            text-decoration: none;
+            transition: color 0.3s;
+            font-size: 0.95rem;
+        }
+        .footer-col ul li a:hover {
+            color: #ffb03b;
+        }
+        .footer-contact-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 15px;
+            font-size: 0.95rem;
+            word-break: break-all;
+        }
+        .footer-contact-item i {
+            color: #ffb03b;
+            margin-right: 12px;
+            margin-top: 4px;
+            flex-shrink: 0;
+        }
+        .footer-bottom {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border-top: 1px solid #161616;
+            padding-top: 30px;
+            gap: 20px;
+            text-align: center;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        .footer-socials {
+            display: flex;
+            gap: 15px;
+        }
+        .footer-socials a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: #0f0f0f;
+            border-radius: 50%;
+            color: #ffffff;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        .footer-socials a:hover {
+            background: #ffb03b;
+            color: #000000;
+            transform: translateY(-4px);
+        }
+        .footer-copy {
+            font-size: 0.9rem;
+            color: #666666;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 900px) {
+            header {
+                padding: 20px 20px;
+            }
+            header nav {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: #0b0b0b;
+                flex-direction: column;
+                padding: 20px;
+                box-shadow: 0 4px 6px rgba(0,0,0,0.5);
+            }
+            header nav.show {
+                display: flex;
+            }
+            header nav ul {
+                flex-direction: column;
+                gap: 15px;
+            }
+            .menu-toggle {
+                display: block;
+            }
+            section {
+                padding: 100px 20px 60px 20px;
+            }
+            .hero {
+                padding: 0 20px;
+            }
+            .about-content, .contact-box {
+                grid-template-columns: 1fr;
+            }
+            footer {
+                padding: 50px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Header Navigation -->
+    <header>
+        <div class="logo">
+            <h2>Mubasshir</h2>
+        </div>
+        <button class="menu-toggle" id="menuBtn">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+        <nav id="navMenu">
+            <ul>
+                <li><a href="#home" class="nav-link active">Home</a></li>
+                <li><a href="#about" class="nav-link">About</a></li>
+                <li><a href="#resume" class="nav-link">Resume</a></li>
+                <li><a href="#services" class="nav-link">Services</a></li>
+                <li><a href="#skills" class="nav-link">Skills</a></li>
+                <li><a href="#projects" class="nav-link">Gallery</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section -->
+        <section id="home" class="hero">
+            <h3>Hello!</h3>
+            <h1>I'm <span>MD Mubasshir Rahman</span></h1>
+            <p>A passionate gamer, photographer, and web enthusiast from Meherpur, Bangladesh.</p>
+        </section>
+
+        <!-- About Me Section -->
+        <section id="about">
+            <div class="about-container">
+                <h2 class="section-title">About <span>Me</span></h2>
+                <p class="about-subtitle">A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
+                <div class="about-content">
+                    <div class="about-img">
+                        <img src="/2.jpg" alt="MD Mubasshir Rahman">
+                    </div>
+                    <div>
+                        <ul class="about-details-list">
+                            <li><strong>Name:</strong> <span>MD Mubasshir Rahman</span></li>
+                            <li><strong>Date of birth:</strong> <span>November 19, 2007</span></li>
+                            <li><strong>Address:</strong> <span>Meherpur, Bangladesh</span></li>
+                            <li><strong>Zip code:</strong> <span>7100</span></li>
+                            <li><strong>Email:</strong> <span>mubassirmd0092@gmail.com</span></li>
+                            <li><strong>Phone:</strong> <span>+8801618445046</span></li>
+                        </ul>
+                        <div class="project-complete-count">10 Project complete</div>
+                        <a href="#contact" class="btn">DOWNLOAD CV</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Resume Section -->
+        <section id="resume">
+            <div class="resume-container">
+                <h2 class="section-title"><span>Resume</span></h2>
+                <p class="about-subtitle">A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
+                <div class="resume-grid">
+                    <div class="resume-card">
+                        <div class="resume-year">2019-2026</div>
+                        <h3 class="resume-title">Gamer & Content Creator</h3>
+                        <div class="resume-place">Competitive Gaming</div>
+                        <p class="resume-desc">A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country.</p>
+                    </div>
+                    <div class="resume-card">
+                        <div class="resume-year">2021-2026</div>
+                        <h3 class="resume-title">Professional Photographer</h3>
+                        <div class="resume-place">Visual Studio</div>
+                        <p class="resume-desc">A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country.</p>
+                    </div>
+                    <div class="resume-card">
+                        <div class="resume-year">2022-2026</div>
+                        <h3 class="resume-title">Front-End Web Developer</h3>
+                        <div class="resume-place">Web Studio</div>
+                        <p class="resume-desc">A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country.</p>
+                    </div>
+                    <div class="resume-card">
+                        <div class="resume-year">2023-2026</div>
+                        <h3 class="resume-title">Video Editor</h3>
+                        <div class="resume-place">Creative Lab</div>
+                        <p class="resume-desc">A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section id="services">
+            <div class="services-container">
+                <h2 class="section-title">My <span>Services</span></h2>
+                <div class="services-list">
+                    <div class="service-item"><i class="fa-solid fa-arrow-right"></i> Gaming & Strategy Management (PUBG Mobile)</div>
+                    <div class="service-item"><i class="fa-solid fa-arrow-right"></i> Professional Photography & Visuals</div>
+                    <div class="service-item"><i class="fa-solid fa-arrow-right"></i> Web Design & Front-End Development</div>
+                    <div class="service-item"><i class="fa-solid fa-arrow-right"></i> Video & Content Editing</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills">
+            <div class="skills-container">
+                <h2 class="section-title">My <span>Skills</span></h2>
+                <div class="skills-grid-box">
+                    <div class="skill-box">
+                        <div class="skill-info">
+                            <span>PUBG Mobile & Tactical Gaming</span>
+                            <span>95%</span>
+                        </div>
+                        <div class="progress-line"><span data-width="95%"></span></div>
+                    </div>
+                    <div class="skill-box">
+                        <div class="skill-info">
+                            <span>Photography & Visuals</span>
+                            <span>90%</span>
+                        </div>
+                        <div class="progress-line"><span data-width="90%"></span></div>
+                    </div>
+                    <div class="skill-box">
+                        <div class="skill-info">
+                            <span>HTML5 & CSS3 Web Design</span>
+                            <span>85%</span>
+                        </div>
+                        <div class="progress-line"><span data-width="85%"></span></div>
+                    </div>
+                    <div class="skill-box">
+                        <div class="skill-info">
+                            <span>Video & Content Editing</span>
+                            <span>80%</span>
+                        </div>
+                        <div class="progress-line"><span data-width="80%"></span></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects / Gallery Section -->
+        <section id="projects">
+            <div class="projects-container">
+                <h2 class="section-title">My <span>Works & Highlights</span></h2>
+                <div class="projects-grid">
+                    <div class="project-item">
+                        <img src="/pubg.jpg" alt="Gaming">
+                        <div class="project-info">
+                            <h4>Gaming Highlights</h4>
+                            <p>Moments and setups dedicated to competitive mobile gaming like PUBG Mobile.</p>
+                        </div>
+                    </div>
+                    <div class="project-item">
+                        <img src="/cm.jpg" alt="Photography">
+                        <div class="project-info">
+                            <h4>Photography Shots</h4>
+                            <p>A collection of creative frames and aesthetic shots captured through lenses.</p>
+                        </div>
+                    </div>
+                    <div class="project-item">
+                        <img src="/d.png" alt="Web Design">
+                        <div class="project-info">
+                            <h4>Portfolio Design</h4>
+                            <p>Modern personal website layout styled with Clark template aesthetics.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact">
+            <div class="contact-container">
+                <h2 class="section-title">Contact <span>Me</span></h2>
+                <div class="contact-box">
+                    <div class="contact-info" style="color: #a0a0a0;">
+                        <p style="margin-bottom: 20px;">আপনার কোনো প্রজেক্ট আইডিয়া থাকলে বা আমার সাথে যোগাযোগ করতে চাইলে নিচের ফর্মটি পূরণ করতে পারেন।</p>
+                        <p><strong>Location:</strong> Meherpur, Bangladesh</p>
+                        <p><strong>Email:</strong> mubassirmd0092@gmail.com</p>
+                    </div>
+                    <div class="contact-form">
+                        <form>
+                            <input type="text" placeholder="Your Name" required>
+                            <input type="email" placeholder="Your Email" required>
+                            <textarea placeholder="Your Message" required></textarea>
+                            <button type="submit" class="btn">Send Message</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Clark Style 4-Column Footer -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h3>About</h3>
+                <p>পড়াশোনার পাশাপাশি গেমিং, ফটোগ্রাফি এবং আধুনিক ওয়েব ডিজাইন নিয়ে কাজ করতে ভালো লাগে। এটি আমাদের পার্সোনাল পোর্টফোলিও ওয়েবসাইট।</p>
+            </div>
+            <div class="footer-col">
+                <h3>Links</h3>
+                <ul>
+                    <li><a href="#home">→ Home</a></li>
+                    <li><a href="#about">→ About</a></li>
+                    <li><a href="#resume">→ Resume</a></li>
+                    <li><a href="#services">→ Services</a></li>
+                    <li><a href="#projects">→ Projects</a></li>
+                    <li><a href="#contact">→ Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Services</h3>
+                <ul>
+                    <li><a href="#services">→ Gaming & Strategy</a></li>
+                    <li><a href="#services">→ Photography</a></li>
+                    <li><a href="#services">→ Web Design</a></li>
+                    <li><a href="#services">→ Content Editing</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Have a Question?</h3>
+                <div class="footer-contact-item">
+                    <i class="fa-solid fa-location-dot"></i>
+                    <span>Meherpur, Bangladesh</span>
+                </div>
+                <div class="footer-contact-item">
+                    <i class="fa-solid fa-phone"></i>
+                    <span>+8801618445046</span>
+                </div>
+                <div class="footer-contact-item">
+                    <i class="fa-solid fa-envelope"></i>
+                    <span>mubassirmd0092@gmail.com</span>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="footer-socials">
+                <a href="https://www.facebook.com/share/19jMf4ER6q/" target="_blank" title="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                <a href="https://www.instagram.com/mubasshir_rahman_10?exln=MW9jMXdnZWt1ZHpnOA==" target="_blank" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                <a href="https://youtube.com/@4e-mafia?si=IwXCeam9XyottHSN" target="_blank" title="YouTube"><i class="fa-brands fa-youtube"></i></a>
+                <a href="https://tiktok.com/@mubasshir__official__56" target="_blank" title="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+            </div>
+            <div class="footer-copy">
+                Copyright &copy; 2026 All rights reserved | Designed by MD Mubasshir Rahman
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript for Mobile Menu & Animations -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const menuBtn = document.getElementById("menuBtn");
+            const navMenu = document.getElementById("navMenu");
+            const navLinks = document.querySelectorAll(".nav-link");
+
+            menuBtn.addEventListener("click", function () {
+                navMenu.classList.toggle("show");
+            });
+
+            navLinks.forEach(link => {
+                link.addEventListener("click", function () {
+                    navMenu.classList.remove("show");
+                });
+            });
+
+            const sections = document.querySelectorAll("section");
+            const progressBars = document.querySelectorAll(".progress-line span");
+
+            const revealSection = function (entries, observer) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("active-anim");
+
+                        if(entry.target.id === 'skills') {
+                            progressBars.forEach(bar => {
+                                const targetWidth = bar.getAttribute('data-width');
+                                bar.style.width = targetWidth;
+                            });
+                        }
+                    }
+                });
+            };
+
+            const sectionObserver = new IntersectionObserver(revealSection, {
+                root: null,
+                threshold: 0.15,
+            });
+
+            sections.forEach(section => {
+                if(section.id !== 'home') {
+                    sectionObserver.observe(section);
+                } else {
+                    section.classList.add("active-anim");
+                }
+            });
+        });
+    </script>
+</body>
+</html>
